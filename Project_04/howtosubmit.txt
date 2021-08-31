@@ -1,0 +1,25 @@
+Upload a file to patas (FROM LOCAL)
+scp -r LOCAL_PATH  kharalds@patas.ling.washington.edu:/home2/kharalds/LING473/PROJECT_N
+
+Make executable
+chmod +x run.sh
+
+Run on Patas
+./run.sh PATAS_CORPUS >output
+
+Run on Condor
+condor_submit condor.cmd
+
+Get Tar File from Project Dir
+tar -czf hw.tar.gz ./*
+
+Check Project (change out project)
+/dropbox/20-21/473/project1/check_project1.sh
+
+Download Tar from patas to local (ON LOCAL TERMINAL)
+scp -r kharalds@patas.ling.washington.edu:/home2/kharalds/LING473/PROJECT_N/hw.tar.gz ./
+scp -r kharalds@patas.ling.washington.edu:/home2/kharalds/LING473/Project_02/hw.tar.gz ./
+scp -r kharalds@patas.ling.washington.edu:/home2/kharalds/LING473/Project_03/hw.tar.gz ./
+
+
+./run.sh /corpora/LDC/LDC02T31/nyt/2000 >output 10:14
