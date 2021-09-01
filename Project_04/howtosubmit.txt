@@ -20,6 +20,6 @@ Download Tar from patas to local (ON LOCAL TERMINAL)
 scp -r kharalds@patas.ling.washington.edu:/home2/kharalds/LING473/PROJECT_N/hw.tar.gz ./
 scp -r kharalds@patas.ling.washington.edu:/home2/kharalds/LING473/Project_02/hw.tar.gz ./
 scp -r kharalds@patas.ling.washington.edu:/home2/kharalds/LING473/Project_03/hw.tar.gz ./
-
+scp -r kharalds@patas.ling.washington.edu:/home2/kharalds/LING473/Project_04/hw.tar.gz ./
 
 ./run.sh /corpora/LDC/LDC02T31/nyt/2000 >output 10:14

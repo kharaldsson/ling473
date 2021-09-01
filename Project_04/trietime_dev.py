@@ -96,7 +96,7 @@ def process_files(target_path, input_path):
     # print(target_sequences)
 
 
-# process_file(sys.argv[1], sys.argv[2])
+process_file(sys.argv[1], sys.argv[2])
 
 targets_path = "/Users/Karl/LING473/Projects/Project_04/targets"
 inputs_path = "/Users/Karl/LING473/Projects/Project_04/example_input"
