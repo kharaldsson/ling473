@@ -20,7 +20,6 @@ class Language:
         with open(self.filepath, 'r', encoding='utf8') as f:
             lines = f.readlines()
         lines = [sub.replace('\n', '') for sub in lines]
-        # self.lines = lines
 
         # Split Language Model into Dict
         unigram_keys = []
@@ -43,7 +42,7 @@ class Language:
         return self.probabilities_dictionary[word]
 
 
-class NaiveBayes:
+class NaiveBayes(object):
     def __init__(self, language_models_path):
         self.language_models_path = language_models_path
         self.input_sentence = None
@@ -73,23 +72,37 @@ class NaiveBayes:
         self.result = max(self.probabilities, key=self.probabilities.get)
 
 
-def run(model_path, input_file_path, output_file):
+def parse_inputs(input_lines):
+    out_dict = {}
+    for i in input_lines:
+        line_clean = i.replace('\n', '')
+        line_split = re.split(r"\t+", line_clean, maxsplit=1)
+        out_dict[line_split[0]] = line_split[1]
+
+    return out_dict
 
 
+def run(model_path, input_file_path, output_path):
+    nb_model = NaiveBayes(model_path)
 
-# process_files(sys.argv[1], sys.argv[2])
-test_file = "/Users/Karl/LING473/Projects/Project_05/project5/language_models/dan.unigram-lm"
-test_path = "/Users/Karl/LING473/Projects/Project_05/project5/language_models"
-test_sentence = "Matatagpuan sa kalagitnaan ng Hilagang Amerika ang karamihan sa mga estado nito kung saan mayroong sariling pamahalaan ang bawat isa na naaayon sa sistemang pederalismo"
-# test_sentence = "Jeg håber at medlemmerne vil gøre de kolleger som måske går rundt udenfor og leder efter den opmærksom på dette"
-# test_lang = Language(test_file)
-# # out = test_lang.load_data()
-# print(test_lang.probabilities_dictionary)
-# # print(test_lang.build_model())
-# print(test_lang.get_probability("for"))
-# print(test_lang.name)
+    with open(input_file_path, 'r', encoding='utf8') as f:
+        inputs = f.readlines()
 
-test_model = NaiveBayes(test_path)
-test_model.predict_log_proba(test_sentence)
-print(test_model.probabilities)
-print(test_model.result)
+    sentences = parse_inputs(inputs)
+
+    pred = []
+    for key, value in sentences.items():
+        nb_model.predict_log_proba(value)
+        model_input = key + "\t" + value
+        pred.append(model_input)
+        for k, v in nb_model.probabilities.items():
+            model_prob = k + "\t" + str(v)
+            pred.append(model_prob)
+        model_result = "result\t" + nb_model.result + "\n"
+        pred.append(model_result)
+
+    with open(output_path, 'w', encoding='utf8') as f:
+        f.writelines("%s\n" % line for line in pred)
+
+
+run(sys.argv[1], sys.argv[2], sys.argv[3])
